@@ -9,9 +9,9 @@ const cases = (state=initialState, action) => {
     case SET_CASE_DATA:
       const { cases } = action.payload
       const mappedCases = cases.map(c => ({
-        date: moment(c['Reported Date']).format('M/D'),
+        date: moment(c['Reported Date']).format('MMM D'),
         positive: c['Confirmed Positive'],
-        dead: c['Deaths'],
+        deceased: c['Deaths'],
         resolved: c['Resolved']
       }))
 
