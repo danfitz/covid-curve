@@ -7,31 +7,40 @@ import ChartCard from '../components/ChartCard'
 import { Flex, Box } from 'rebass'
 import theme from '../theme'
 
-const ChartsView = ({ cases }) => {
+export const ChartsView = ({ cases }) => {
   return (
-    <Box mx={[4, 5, 6]}>
-      <Flex flexWrap='wrap'>
+    <Box
+      data-test='chartsView'
+      mx={[4, 5, 6]}
+    >
+      <Flex
+        data-test='flexBox'
+        flexWrap='wrap'
+      >
         <ChartCard
+          data-test='positiveChart'
           data={cases}
           dataKey='positive'
           sx={{
-            width: [1, 1, 1/3],
+            width: 1,
             p: 3,
           }}
           color={theme.colors.primary} />
         <ChartCard
+          data-test='resolvedChart'
           data={cases}
           dataKey='resolved'
           sx={{
-            width: [1, 1, 1/3],
+            width: [1, 1, 1/2],
             p: 3,
           }}
           color={theme.colors.secondary} />
         <ChartCard
+          data-test='deceasedChart'
           data={cases}
           dataKey='deceased'
           sx={{
-            width: [1, 1, 1/3],
+            width: [1, 1, 1/2],
             p: 3,
           }}
           color={theme.colors.tertiary} />
