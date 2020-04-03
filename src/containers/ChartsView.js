@@ -1,6 +1,7 @@
 // Modules
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 // Child components
 import ChartCard from '../components/ChartCard'
 // UI components
@@ -47,6 +48,15 @@ export const ChartsView = ({ cases }) => {
       </Flex>
     </Box>
   )
+}
+
+ChartsView.propTypes = {
+  cases: PropTypes.arrayOf(PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    positive: PropTypes.number.isRequired,
+    resolved: PropTypes.number.isRequired,
+    deceased: PropTypes.number.isRequired
+  })).isRequired
 }
 
 const mapStateToProps = state => ({ cases: state.cases })

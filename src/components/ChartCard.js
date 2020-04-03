@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts'
 import { Box, Heading, Text } from 'rebass'
 import theme from '../theme'
@@ -64,6 +65,13 @@ const ChartCard = ({
       <span data-test='loader'>Loading...</span>
     )
   }
+}
+
+ChartCard.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  dataKey: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  sx: PropTypes.object
 }
 
 
