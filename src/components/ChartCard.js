@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ResponsiveContainer, AreaChart, Area, Tooltip, XAxis } from 'recharts'
 import { Box, Heading, Text } from 'rebass/styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import theme from '../theme'
 
 const ChartCard = ({
@@ -9,13 +10,14 @@ const ChartCard = ({
   dataKey,
   height,
   color,
+  icon,
   sx
 }) => {
   return (
     <Box
       data-test='chartCard'
       height={height}
-      {...sx}
+      sx={sx}
     >
       <Box
         sx={{
@@ -28,22 +30,48 @@ const ChartCard = ({
       >
         { data.length ? (
           <>
-            <Box sx={{
-              position: 'absolute',
-              top: '2rem',
-              left: '2rem'
-            }}>
-              <Heading fontSize={5}>
-                {data[data.length-1][dataKey]}
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 5,
+                left: 5
+              }}
+            >
+              {icon ? (
+                <FontAwesomeIcon
+                  data-test='icon'
+                  style={{
+                    display: 'block',
+                    color,
+                    backgroundColor: `${color}33`,
+                    borderRadius: '180%',
+                    padding: theme.space[3],
+                    width: theme.space[5],
+                    height: theme.space[5]
+                  }}
+                  icon={icon} />
+              ) : null}
+              <Heading
+                fontSize={5}
+                mt={3}
+              >
+                <span data-test='lastValue'>
+                  {data[data.length-1][dataKey]}
+                </span>
                 {' '}
-                <Text sx={{
-                  display: 'block',
-                  mt: 2,
-                  fontSize: 3,
-                  color: 'unfocusedText',
-                  fontWeight: 'subheading',
-                  textTransform: 'capitalize'
-                }}>{dataKey}</Text>
+                <Text
+                  data-test='dataKeyDisplay'
+                  sx={{
+                    display: 'block',
+                    mt: 2,
+                    fontSize: 3,
+                    color: 'unfocusedText',
+                    fontWeight: 'subheading',
+                    textTransform: 'capitalize'
+                  }}
+                >
+                  {dataKey}
+                </Text>
               </Heading>
             </Box>
 
@@ -113,6 +141,7 @@ ChartCard.propTypes = {
   dataKey: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   sx: PropTypes.object
 }
 

@@ -7,7 +7,8 @@ const defaultProps = {
   data: [{ date: 'Mar 23', positive: 1, resolved: 1, deceased: 1 }],
   dataKey: 'positive',
   height: '20rem',
-  color: 'purple'
+  color: 'purple',
+  icon: 'smile'
 }
 
 const setup = (props={}) => {
@@ -59,5 +60,44 @@ test('color props gets passed to stops in linearGradient as stopColor', () => {
   const linearGradient = findByTestAttr(wrapper, 'linearGradient')
   linearGradient.children().forEach(child => {
     expect(child.props().stopColor).toBe(color)
+  })
+})
+
+describe('Chart description', () => {
+  test('icon renders if icon prop provided', () => {
+    const icon = 'smile'
+    const wrapper = setup({ icon })
+
+    const iconComponent = findByTestAttr(wrapper, 'icon')
+    expect(iconComponent.length).toBe(1)
+  })
+
+  test('icon does NOT render if icon prop not provided', () => {
+    const icon = undefined
+    const wrapper = setup({ icon })
+
+    const iconComponent = findByTestAttr(wrapper, 'icon')
+    expect(iconComponent.length).toBe(0)
+  })
+
+  test('Displays value of dataKey property @ last object in data array', () => {
+    const data = [
+      { date: 'Mar 23', myKey: 500 },
+      { date: 'Mar 24', myKey: 10000 }
+    ]
+    const dataKey = 'myKey'
+    const wrapper = setup({ data, dataKey })
+
+    const lastValue = findByTestAttr(wrapper, 'lastValue')
+    const lastObject = data[data.length-1]
+    expect(lastValue.text()).toBe(lastObject[dataKey].toString())
+  })
+
+  test('Displays dataKey itself', () => {
+    const dataKey = 'I am a test!'
+    const wrapper = setup({ dataKey })
+
+    const dataKeyDisplay = findByTestAttr(wrapper, 'dataKeyDisplay')
+    expect(dataKeyDisplay.text()).toBe(dataKey)
   })
 })

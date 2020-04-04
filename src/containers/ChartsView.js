@@ -15,7 +15,7 @@ const positiveSx = {
 }
 
 const otherSx = {
-  width: ['100%', '100%', '50%'],
+  width: ['100%', '50%'],
   p: 3
 }
 
@@ -34,6 +34,7 @@ export const ChartsView = ({ cases }) => {
           dataKey='positive'
           sx={positiveSx}
           height='20rem'
+          icon='head-side-cough'
           color={theme.colors.primary} />
         <ChartCard
           data-test='resolvedChart'
@@ -41,6 +42,7 @@ export const ChartsView = ({ cases }) => {
           dataKey='resolved'
           sx={otherSx}
           height='20rem'
+          icon='smile'
           color={theme.colors.secondary} />
         <ChartCard
           data-test='deceasedChart'
@@ -48,6 +50,7 @@ export const ChartsView = ({ cases }) => {
           dataKey='deceased'
           sx={otherSx}
           height='20rem'
+          icon='hourglass-end'
           color={theme.colors.tertiary} />
       </Flex>
     </Wrapper>
