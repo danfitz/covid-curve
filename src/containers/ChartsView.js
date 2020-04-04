@@ -5,14 +5,24 @@ import PropTypes from 'prop-types'
 // Child components
 import ChartCard from '../components/ChartCard'
 // UI components
-import { Flex, Box } from 'rebass'
+import Wrapper from '../components/UI/Wrapper'
+import { Flex } from 'rebass/styled-components'
 import theme from '../theme'
+
+const positiveSx = {
+  width: '100%',
+  p: 3
+}
+
+const otherSx = {
+  width: ['100%', '100%', '50%'],
+  p: 3
+}
 
 export const ChartsView = ({ cases }) => {
   return (
-    <Box
+    <Wrapper
       data-test='chartsView'
-      mx={[4, 5, 6]}
     >
       <Flex
         data-test='flexBox'
@@ -22,40 +32,31 @@ export const ChartsView = ({ cases }) => {
           data-test='positiveChart'
           data={cases}
           dataKey='positive'
-          sx={{
-            width: 1,
-            p: 3,
-          }}
+          sx={positiveSx}
           color={theme.colors.primary} />
         <ChartCard
           data-test='resolvedChart'
           data={cases}
           dataKey='resolved'
-          sx={{
-            width: [1, 1, 1/2],
-            p: 3,
-          }}
+          sx={otherSx}
           color={theme.colors.secondary} />
         <ChartCard
           data-test='deceasedChart'
           data={cases}
           dataKey='deceased'
-          sx={{
-            width: [1, 1, 1/2],
-            p: 3,
-          }}
+          sx={otherSx}
           color={theme.colors.tertiary} />
       </Flex>
-    </Box>
+    </Wrapper>
   )
 }
 
 ChartsView.propTypes = {
   cases: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string.isRequired,
-    positive: PropTypes.number.isRequired,
-    resolved: PropTypes.number.isRequired,
-    deceased: PropTypes.number.isRequired
+    positive: PropTypes.number,
+    resolved: PropTypes.number,
+    deceased: PropTypes.number
   })).isRequired
 }
 

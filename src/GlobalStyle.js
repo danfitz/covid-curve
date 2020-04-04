@@ -9,7 +9,10 @@ const GlobalStyle = createGlobalStyle`
   * { box-sizing: border-box; }
 
   // COLORS
-  body { background: ${({ theme }) => theme.colors.bg}; }
+  body {
+    color: ${({ theme }) => theme.colors.text};
+    background: ${({ theme }) => theme.colors.bg};
+  }
   // h1, h2, h3, h4, h5, h6 {
   //   color: ${({ theme }) => theme.colors.blue};
   // }
@@ -21,10 +24,10 @@ const GlobalStyle = createGlobalStyle`
   // }
 
   // FONTS
-  body { font-family: ${({ theme }) => theme.fonts.main}; }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: ${({ theme }) => theme.fonts.main};
-  }
+  body { font-family: ${({ theme }) => theme.fonts.body}; }
+  // h1, h2, h3, h4, h5, h6 {
+  //   font-family: ${({ theme }) => theme.fonts.body};
+  // }
   //   font-weight: ${({ theme }) => theme.fonts.boldWeight};
   //   text-transform: uppercase;
   // p, li, label {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ResponsiveContainer, AreaChart, Area, Tooltip } from 'recharts'
-import { Box, Heading, Text } from 'rebass'
+import { Box, Heading, Text } from 'rebass/styled-components'
 import theme from '../theme'
 
 const ChartCard = ({
@@ -17,11 +17,11 @@ const ChartCard = ({
         {...sx}
       >
         <Box
-          bg='white'
           sx={{
-            borderRadius: '0.4rem',
-            boxShadow: '0 0.05rem 1rem 0.05rem rgba(0,0,0,0.05)',
-            position: 'relative'
+            position: 'relative',
+            bg: 'white',
+            borderRadius: 'small',
+            boxShadow: 'small'
           }}
         >
           <Box sx={{
@@ -29,11 +29,11 @@ const ChartCard = ({
             top: '2rem',
             left: '2rem'
           }}>
-            <Heading as='h2'>
+            <Heading>
               {data[data.length-1][dataKey]}
               <br />
-              <Text>{dataKey}</Text>
             </Heading>
+            <Text>{dataKey}</Text>
           </Box>
 
           <ResponsiveContainer width='100%' height='100%' minHeight={400}>
@@ -60,9 +60,10 @@ const ChartCard = ({
       </Box>
     )
   } else {
-    // return 'Loading...'
     return (
-      <span data-test='loader'>Loading...</span>
+      <Text>
+        <span data-test='loader'>Loading...</span>
+      </Text>
     )
   }
 }
