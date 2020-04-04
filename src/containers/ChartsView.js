@@ -33,18 +33,21 @@ export const ChartsView = ({ cases }) => {
           data={cases}
           dataKey='positive'
           sx={positiveSx}
+          height='20rem'
           color={theme.colors.primary} />
         <ChartCard
           data-test='resolvedChart'
           data={cases}
           dataKey='resolved'
           sx={otherSx}
+          height='20rem'
           color={theme.colors.secondary} />
         <ChartCard
           data-test='deceasedChart'
           data={cases}
           dataKey='deceased'
           sx={otherSx}
+          height='20rem'
           color={theme.colors.tertiary} />
       </Flex>
     </Wrapper>

@@ -19,12 +19,12 @@ export default {
     '80%', '85%', '90%'
   ],
   fonts: {
-    text: 'Open Sans',
     body: 'Open Sans, sans-serif',
     heading: 'Open Sans, sans-serif'
   },
   fontWeights: {
     body: 400,
+    subheading: 600,
     heading: 700,
     bold: 700,
   },
@@ -34,7 +34,7 @@ export default {
   },
   shadows: {
     small: '0 0.05rem 0.08rem 0.05rem rgba(0,0,0,0.08)',
-    large: '0 0.05rem 1rem 0.1rem rgba(0,0,0,0.1)'
+    large: '0 0.2rem 1.5rem 0.1rem rgba(0,0,0,0.1)'
   },
   radii: {
     small: '0.4rem'

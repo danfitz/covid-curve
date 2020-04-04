@@ -6,6 +6,7 @@ import ChartCard from './ChartCard'
 const defaultProps = {
   data: [{ date: 'Mar 23', positive: 1, resolved: 1, deceased: 1 }],
   dataKey: 'positive',
+  height: '20rem',
   color: 'purple'
 }
 
