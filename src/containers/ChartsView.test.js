@@ -29,11 +29,6 @@ describe('flex box renders with charts', () => {
     wrapper = setup()
   })
 
-  test('renders flex box', () => {
-    const flexBox = findByTestAttr(wrapper, 'flexBox')
-    expect(flexBox.length).toBe(1)
-  })
-
   test('renders positive chart', () => {
     const totalChart = findByTestAttr(wrapper, 'totalChart')
     expect(totalChart.length).toBe(1)

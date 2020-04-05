@@ -5,12 +5,19 @@ import { ThemeProvider } from 'styled-components'
 import theme from './theme'
 import GlobalStyle from './GlobalStyle'
 import ChartsView from './containers/ChartsView'
+import Wrapper from './components/UI/Wrapper'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 const App = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <ChartsView />
+      <Wrapper>
+        <Header />
+        <ChartsView />
+        <Footer />
+      </Wrapper>
     </ThemeProvider>
   </Provider>
 )
