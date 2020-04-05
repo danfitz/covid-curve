@@ -13,6 +13,13 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.text};
     background: ${({ theme }) => theme.colors.bg};
   }
+  a {
+    color: ${({ theme }) => theme.colors.primary};
+    text-decoration: none;
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+
+    :visited, :focus, :hover { text-decoration: underline; }
+  }
   // h1, h2, h3, h4, h5, h6 {
   //   color: ${({ theme }) => theme.colors.blue};
   // }

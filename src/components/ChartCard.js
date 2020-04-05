@@ -49,7 +49,8 @@ const ChartCard = ({
           position: 'relative',
           bg: 'white',
           borderRadius: 'small',
-          boxShadow: 'small'
+          boxShadow: 'small',
+          overflow: 'hidden'
         }}
       >
         { data.length ? (
