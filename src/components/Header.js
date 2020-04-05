@@ -53,7 +53,7 @@ const Header = () => (
           Data sourced from
           {' '}
           <Link
-            href='https://data.ontario.ca/dataset/status-of-covid-19-cases-in-ontario/resource/ed270bb8-340b-41f9-a7c6-e8ef587e6d11'
+            href='https://data.ontario.ca/dataset?keywords_en=COVID-19'
             target='_blank'
           >
             Ontario's Data API

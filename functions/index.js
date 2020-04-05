@@ -73,7 +73,7 @@ const organizeCasesByHealthUnit = cases => {
     }, {})
 }
 
-exports.ontarioRunner = functions.pubsub.schedule('* * * * *')
+exports.ontarioRunner = functions.pubsub.schedule('30 11 * * *')
   .timeZone('America/New_York')
   .onRun(async context => {
     try {
