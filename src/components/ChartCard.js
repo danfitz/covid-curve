@@ -7,16 +7,21 @@ import theme from '../theme'
 import BeatLoader from 'react-spinners/BeatLoader'
 
 export const percentDiff = (num1, num2) => {
-  if (num2 >= num1) {
+  if (num1 === 0 && num2 === 0) {
+    return {
+      percentage: `0% today`,
+      type: 'down'
+    }
+  } else if (num2 > num1) {
     const diff = ((num2 / num1) - 1) * 100
     return {
-      percentage: `${Math.floor(diff)}% today`,
+      percentage: `${diff && diff - diff.toFixed(2) !== 0 ? diff.toFixed(2) : diff}% today`,
       type: 'up'
     }
   } else {
     const diff = (1 - (num1 / num2)) * 100
     return {
-      percentage: `${Math.floor(diff)}% today`,
+      percentage: `${diff && diff - diff.toFixed(2) !== 0 ? diff.toFixed(2) : diff}% today`,
       type: 'down'
     }
   }

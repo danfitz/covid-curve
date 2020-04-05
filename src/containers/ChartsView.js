@@ -1,11 +1,16 @@
 // Modules
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
+// Redux
+import { connect } from 'react-redux'
+import { getCases, setHealthUnit } from '../redux/actions'
 // Child components
 import ChartCard from '../components/ChartCard'
 // UI components
-import { Flex } from 'rebass/styled-components'
+import { Flex, Box } from 'rebass/styled-components'
+import { Select, Label } from '@rebass/forms/styled-components'
+import Hide from '../components/UI/Hide'
+// Assets
 import theme from '../theme'
 
 const totalSx = {
@@ -26,37 +31,68 @@ const deceasedSx = {
   pr: 0
 }
 
-export const ChartsView = ({ cases }) => {
+export const ChartsView = ({
+  getCases,
+  setHealthUnit,
+  cases,
+  healthUnit,
+  healthUnits
+}) => {
+  useEffect(() => {
+    getCases()
+  }, [getCases, healthUnit])
+
   return (
-    <Flex
-      data-test='chartsView'
-      flexWrap='wrap'
-    >
-      <ChartCard
-        data-test='totalChart'
-        data={cases}
-        dataKey='total'
-        sx={totalSx}
-        height='20rem'
-        icon='virus'
-        color={theme.colors.primary} />
-      <ChartCard
-        data-test='resolvedChart'
-        data={cases}
-        dataKey='resolved'
-        sx={resolvedSx}
-        height='20rem'
-        icon='smile'
-        color={theme.colors.secondary} />
-      <ChartCard
-        data-test='deceasedChart'
-        data={cases}
-        dataKey='deceased'
-        sx={deceasedSx}
-        height='20rem'
-        icon='hourglass-end'
-        color={theme.colors.tertiary} />
-    </Flex>
+    <Box>
+      <Hide>
+        <Label htmlFor='healthUnits'>Public Health Units</Label>
+      </Hide>
+      <Select
+        id='city'
+        name='city'
+        defaultValue='All'
+        onChange={e => setHealthUnit(e.target.value)}
+      >
+        {healthUnits.map(unit => (
+          <option
+            key={unit}
+            value={unit}
+          >  
+            {unit === 'All' ? 'All Public Health Units' : unit}
+          </option>
+        ))}
+      </Select>
+
+      <Flex
+        data-test='chartsView'
+        flexWrap='wrap'
+      >
+        <ChartCard
+          data-test='totalChart'
+          data={cases}
+          dataKey='total'
+          sx={totalSx}
+          height='20rem'
+          icon='virus'
+          color={theme.colors.primary} />
+        <ChartCard
+          data-test='resolvedChart'
+          data={cases}
+          dataKey='resolved'
+          sx={resolvedSx}
+          height='20rem'
+          icon='smile'
+          color={theme.colors.secondary} />
+        <ChartCard
+          data-test='deceasedChart'
+          data={cases}
+          dataKey='deceased'
+          sx={deceasedSx}
+          height='20rem'
+          icon='hourglass-end'
+          color={theme.colors.tertiary} />
+      </Flex>
+    </Box>
   )
 }
 
@@ -69,10 +105,16 @@ ChartsView.propTypes = {
   })).isRequired
 }
 
-const mapStateToProps = state => ({ cases: state.cases })
+const mapStateToProps = state => state
+
+const mapDispatchToProps = {
+  getCases,
+  setHealthUnit
+}
 
 const ConnectedChartsView = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(ChartsView)
 
 export default ConnectedChartsView

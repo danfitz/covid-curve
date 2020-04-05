@@ -1,8 +1,10 @@
 import { all } from 'redux-saga/effects'
-import getCaseData from './getCaseData'
+import getHealthUnits from './getHealthUnits'
+import getCasesSaga from './getCasesSaga'
 
 export default function* rootSaga() {
   yield all([
-    getCaseData()
+    getHealthUnits(),
+    getCasesSaga()
   ])
 }

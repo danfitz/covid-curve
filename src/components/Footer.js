@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Footer = () => (
   <footer>
     <Flex mt={2} mb={5} flexDirection='column' justifyContent='center' alignItems='center'>
-      <Text color='unfocusedText'><p>Made by Dan Fitz</p></Text>
+      <Text color='unfocusedText'><p>Created by Dan Fitz</p></Text>
       <Box>
         <Link
           mr={2}

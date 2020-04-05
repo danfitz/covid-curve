@@ -1,29 +1,40 @@
 import { combineReducers } from 'redux'
-import { SET_CASE_DATA } from '../actions/actionTypes'
-import moment from 'moment'
+import { SET_CASES, SET_HEALTH_UNIT, SET_HEALTH_UNITS } from '../actions/actionTypes'
 
-const initialState = []
-
-const cases = (state=initialState, action) => {
+const cases = (state=[], action) => {
   switch (action.type) {
-    case SET_CASE_DATA:
+    case SET_CASES:
       const { cases } = action.payload
-      const mappedCases = cases.map(c => ({
-        date: moment(c['Reported Date']).format('MMM D'),
-        total: c['Total Cases'],
-        positive: c['Confirmed Positive'],
-        deceased: c['Deaths'],
-        resolved: c['Resolved']
-      }))
+      return cases
+    default:
+      return state
+  }
+}
 
-      return mappedCases
+const healthUnit = (state='All', action) => {
+  switch (action.type) {
+    case SET_HEALTH_UNIT:
+      const { healthUnit } = action.payload
+      return healthUnit
+    default:
+      return state
+  }
+}
+
+const healthUnits = (state=[], action) => {
+  switch (action.type) {
+    case SET_HEALTH_UNITS:
+      const { healthUnits } = action.payload
+      return healthUnits
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  cases
+  cases,
+  healthUnit,
+  healthUnits
 })
 
 export default rootReducer
