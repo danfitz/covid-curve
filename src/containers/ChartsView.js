@@ -13,7 +13,7 @@ import theme from '../theme'
 import ontarioLogo from '../assets/images/ontarioLogo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const positiveSx = {
+const totalSx = {
   width: '100%',
   mt: 4
 }
@@ -81,7 +81,7 @@ export const ChartsView = ({ cases }) => {
               </Link>
             </p>
             <p>
-              Data updated every day at 10:30 AM via
+              Data sourced from
               {' '}
               <Link
                 href='https://data.ontario.ca/dataset/status-of-covid-19-cases-in-ontario/resource/ed270bb8-340b-41f9-a7c6-e8ef587e6d11'
@@ -89,6 +89,7 @@ export const ChartsView = ({ cases }) => {
               >
                 Ontario's Data API
               </Link>
+              , which is updated every day at 10:30 AM
             </p>
           </Text>
         </Flex>
@@ -100,10 +101,10 @@ export const ChartsView = ({ cases }) => {
           flexWrap='wrap'
         >
           <ChartCard
-            data-test='positiveChart'
+            data-test='totalChart'
             data={cases}
-            dataKey='positive'
-            sx={positiveSx}
+            dataKey='total'
+            sx={totalSx}
             height='20rem'
             icon='virus'
             color={theme.colors.primary} />

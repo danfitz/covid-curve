@@ -7,7 +7,7 @@ const endpoint = 'https://data.ontario.ca/api/3/action/datastore_search?resource
 
 function* getCaseData() {
   try {
-    const data = yield call(
+    const response = yield call(
       axios,
       {
         method: 'get',
@@ -15,7 +15,7 @@ function* getCaseData() {
       }
     )
 
-    yield put(setCaseData(data.data.result.records))
+    yield put(setCaseData(response.data.result.records))
   } catch (error) {
     console.error(error.message)
   }

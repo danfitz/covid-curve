@@ -35,8 +35,8 @@ describe('flex box renders with charts', () => {
   })
 
   test('renders positive chart', () => {
-    const positiveChart = findByTestAttr(wrapper, 'positiveChart')
-    expect(positiveChart.length).toBe(1)
+    const totalChart = findByTestAttr(wrapper, 'totalChart')
+    expect(totalChart.length).toBe(1)
   })
 
   test('renders resolved chart', () => {
