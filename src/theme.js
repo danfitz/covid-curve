@@ -37,7 +37,7 @@ export default {
     large: '0 0.2rem 1.5rem 0.1rem rgba(0,0,0,0.1)'
   },
   radii: {
-    small: '0.4rem'
+    small: '0.5rem'
   }
   // variants: {
   // },

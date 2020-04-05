@@ -42,7 +42,7 @@ export const ChartsView = ({ cases }) => {
           dataKey='positive'
           sx={positiveSx}
           height='20rem'
-          icon='head-side-cough'
+          icon='virus'
           color={theme.colors.primary} />
         <ChartCard
           data-test='resolvedChart'

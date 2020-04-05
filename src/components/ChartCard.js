@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ResponsiveContainer, AreaChart, Area, Tooltip, XAxis } from 'recharts'
-import { Box, Heading, Text } from 'rebass/styled-components'
+import { Flex, Box, Heading, Text } from 'rebass/styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import theme from '../theme'
+import BeatLoader from 'react-spinners/BeatLoader'
 
 export const percentDiff = (num1, num2) => {
   if (num2 >= num1) {
@@ -56,8 +57,8 @@ const ChartCard = ({
             <Box
               sx={{
                 position: 'absolute',
-                top: 5,
-                left: 5
+                top: [4, 5],
+                left: [4, 5]
               }}
             >
               { icon ? (
@@ -74,9 +75,28 @@ const ChartCard = ({
                   }}
                   icon={icon} />
               ) : null }
+              { diff ? (
+                <Box
+                  data-test='percentDiff'
+                  sx={{
+                    mt: 4,
+                    color: diff.type === 'down' ? 'green' : 'red',
+                    display: 'flex',
+                    fontSize: 2,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  <FontAwesomeIcon icon={`caret-${diff.type}`} />
+                  <Text ml={1}>
+                    <span data-test='percentDiffValue'>
+                      {diff.percentage}
+                    </span>
+                  </Text>
+                </Box>
+              ) : null }
               <Heading
+                mt={1}
                 fontSize={5}
-                mt={3}
               >
                 <span data-test='lastValue'>
                   {data[data.length-1][dataKey]}
@@ -96,25 +116,6 @@ const ChartCard = ({
                   {dataKey}
                 </Text>
               </Heading>
-              { diff ? (
-                <Box
-                  data-test='percentDiff'
-                  sx={{
-                    mt: 1,
-                    color: diff.type === 'down' ? 'green' : 'red',
-                    display: 'flex',
-                    fontSize: 3,
-                    fontWeight: 'bold'
-                  }}
-                >
-                  <FontAwesomeIcon icon={`caret-${diff.type}`} />
-                  <Text ml={1}>
-                    <span data-test='percentDiffValue'>
-                      {diff.percentage}
-                    </span>
-                  </Text>
-                </Box>
-              ) : null }
             </Box>
 
             <ResponsiveContainer width='100%' height='100%'>
@@ -135,7 +136,7 @@ const ChartCard = ({
                   fillOpacity={1}
                   fill={`url(#${dataKey})`} />
                 <Tooltip
-                  cursor={false}
+                  cursor={{ stroke: color, strokeWidth: 1 }}
                   separator=''
                   formatter={value => [value, '']}
                   wrapperStyle={{
@@ -143,14 +144,8 @@ const ChartCard = ({
                   }}
                   contentStyle={{
                     height: '100%',
-                    width: '100px',
                     border: 'none',
                     background: 'transparent',
-                    boxShadow: theme.shadows.large,
-                    borderRadius: theme.radii.small,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between'
                   }}
                   labelStyle={{
                     padding: '0.25rem',
@@ -162,7 +157,7 @@ const ChartCard = ({
                     color: theme.colors.text,
                     fontWeight: theme.fontWeights.bold,
                     textAlign: 'center',
-                    padding: '1rem 0 0.25rem'
+                    padding: '0.25rem'
                   }}
                   />
                   <XAxis dataKey='date' hide={true} />
@@ -170,9 +165,13 @@ const ChartCard = ({
             </ResponsiveContainer>
           </>
         ) : (
-          <Text>
-            <span data-test='loader'>Loading...</span>
-          </Text>
+          <Flex
+            justifyContent='center'
+            alignItems='center'
+            height='100%'
+          >
+            <BeatLoader data-test='loader' color={color} loading={true} size={20} />
+          </Flex>
         ) }
       </Box>
     </Box>

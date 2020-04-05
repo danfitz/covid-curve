@@ -1,6 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
-  faHeadSideCough,
+  // faHeadSideCough,
+  faVirus,
   faSmile,
   faHourglassEnd,
   faCaretUp,
@@ -8,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-  faHeadSideCough,
+  faVirus,
   faSmile,
   faHourglassEnd,
   faCaretUp,

@@ -17,6 +17,7 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
+    "react-spinners": "^0.8.1",
     "rebass": "^4.0.7",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
