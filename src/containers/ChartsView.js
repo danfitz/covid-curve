@@ -11,12 +11,20 @@ import theme from '../theme'
 
 const positiveSx = {
   width: '100%',
-  p: 3
+  mt: 4
 }
 
-const otherSx = {
+const resolvedSx = {
   width: ['100%', '50%'],
-  p: 3
+  mt: 4,
+  mb: [0, 4],
+  pr: [0, 4]
+}
+
+const deceasedSx = {
+  ...resolvedSx,
+  mb: 4,
+  pr: 0
 }
 
 export const ChartsView = ({ cases }) => {
@@ -40,7 +48,7 @@ export const ChartsView = ({ cases }) => {
           data-test='resolvedChart'
           data={cases}
           dataKey='resolved'
-          sx={otherSx}
+          sx={resolvedSx}
           height='20rem'
           icon='smile'
           color={theme.colors.secondary} />
@@ -48,7 +56,7 @@ export const ChartsView = ({ cases }) => {
           data-test='deceasedChart'
           data={cases}
           dataKey='deceased'
-          sx={otherSx}
+          sx={deceasedSx}
           height='20rem'
           icon='hourglass-end'
           color={theme.colors.tertiary} />

@@ -5,6 +5,22 @@ import { Box, Heading, Text } from 'rebass/styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import theme from '../theme'
 
+export const percentDiff = (num1, num2) => {
+  if (num2 >= num1) {
+    const diff = ((num2 / num1) - 1) * 100
+    return {
+      percentage: `${Math.floor(diff)}% today`,
+      type: 'up'
+    }
+  } else {
+    const diff = (1 - (num1 / num2)) * 100
+    return {
+      percentage: `${Math.floor(diff)}% today`,
+      type: 'down'
+    }
+  }
+}
+
 const ChartCard = ({
   data,
   dataKey,
@@ -13,6 +29,13 @@ const ChartCard = ({
   icon,
   sx
 }) => {
+  let diff
+  if (data.length >= 2) {
+    const secondLast = data[data.length-2][dataKey]
+    const last = data[data.length-1][dataKey]
+    diff = percentDiff(secondLast, last)
+  }
+
   return (
     <Box
       data-test='chartCard'
@@ -37,7 +60,7 @@ const ChartCard = ({
                 left: 5
               }}
             >
-              {icon ? (
+              { icon ? (
                 <FontAwesomeIcon
                   data-test='icon'
                   style={{
@@ -50,7 +73,7 @@ const ChartCard = ({
                     height: theme.space[5]
                   }}
                   icon={icon} />
-              ) : null}
+              ) : null }
               <Heading
                 fontSize={5}
                 mt={3}
@@ -73,6 +96,25 @@ const ChartCard = ({
                   {dataKey}
                 </Text>
               </Heading>
+              { diff ? (
+                <Box
+                  data-test='percentDiff'
+                  sx={{
+                    mt: 1,
+                    color: diff.type === 'down' ? 'green' : 'red',
+                    display: 'flex',
+                    fontSize: 3,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  <FontAwesomeIcon icon={`caret-${diff.type}`} />
+                  <Text ml={1}>
+                    <span data-test='percentDiffValue'>
+                      {diff.percentage}
+                    </span>
+                  </Text>
+                </Box>
+              ) : null }
             </Box>
 
             <ResponsiveContainer width='100%' height='100%'>
@@ -114,6 +156,7 @@ const ChartCard = ({
                     padding: '0.25rem',
                     textAlign: 'center',
                     fontSize: theme.fontSizes[2],
+                    color
                   }}
                   itemStyle={{
                     color: theme.colors.text,

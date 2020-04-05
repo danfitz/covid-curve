@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { findByTestAttr } from '../utils/testUtils'
-import ChartCard from './ChartCard'
+import ChartCard, { percentDiff } from './ChartCard'
 
 const defaultProps = {
   data: [{ date: 'Mar 23', positive: 1, resolved: 1, deceased: 1 }],
@@ -29,37 +29,39 @@ test('renders loader if data is empty', () => {
   expect(loader.length).toBe(1)
 })
 
-test('data prop gets passed to AreaChart as data prop', () => {
-  const { data } = defaultProps
-  const wrapper = setup({ data })
-
-  const areaChart = findByTestAttr(wrapper, 'areaChart')
-  expect(areaChart.props().data).toBe(data)
-})
-
-test('dataKey prop gets passed to Area as prop', () => {
-  const dataKey = 'negative'
-  const wrapper = setup({ dataKey })
-
-  const area = findByTestAttr(wrapper, 'area')
-  expect(area.props().dataKey).toBe(dataKey)
-})
-
-test('color prop gets passed to Area as stroke prop', () => {
-  const color = 'green'
-  const wrapper = setup({ color })
-
-  const area = findByTestAttr(wrapper, 'area')
-  expect(area.props().stroke).toBe(color)
-})
-
-test('color props gets passed to stops in linearGradient as stopColor', () => {
-  const color = 'yellow'
-  const wrapper = setup({ color })
-
-  const linearGradient = findByTestAttr(wrapper, 'linearGradient')
-  linearGradient.children().forEach(child => {
-    expect(child.props().stopColor).toBe(color)
+describe('Props passed to child components correctly', () => {
+  test('data prop gets passed to AreaChart as data prop', () => {
+    const { data } = defaultProps
+    const wrapper = setup({ data })
+  
+    const areaChart = findByTestAttr(wrapper, 'areaChart')
+    expect(areaChart.props().data).toBe(data)
+  })
+  
+  test('dataKey prop gets passed to Area as prop', () => {
+    const dataKey = 'negative'
+    const wrapper = setup({ dataKey })
+  
+    const area = findByTestAttr(wrapper, 'area')
+    expect(area.props().dataKey).toBe(dataKey)
+  })
+  
+  test('color prop gets passed to Area as stroke prop', () => {
+    const color = 'green'
+    const wrapper = setup({ color })
+  
+    const area = findByTestAttr(wrapper, 'area')
+    expect(area.props().stroke).toBe(color)
+  })
+  
+  test('color props gets passed to stops in linearGradient as stopColor', () => {
+    const color = 'yellow'
+    const wrapper = setup({ color })
+  
+    const linearGradient = findByTestAttr(wrapper, 'linearGradient')
+    linearGradient.children().forEach(child => {
+      expect(child.props().stopColor).toBe(color)
+    })
   })
 })
 
@@ -80,7 +82,7 @@ describe('Chart description', () => {
     expect(iconComponent.length).toBe(0)
   })
 
-  test('Displays value of dataKey property @ last object in data array', () => {
+  test('displays value of dataKey property @ last object in data array', () => {
     const data = [
       { date: 'Mar 23', myKey: 500 },
       { date: 'Mar 24', myKey: 10000 }
@@ -93,11 +95,45 @@ describe('Chart description', () => {
     expect(lastValue.text()).toBe(lastObject[dataKey].toString())
   })
 
-  test('Displays dataKey itself', () => {
+  test('displays dataKey itself', () => {
     const dataKey = 'I am a test!'
     const wrapper = setup({ dataKey })
 
     const dataKeyDisplay = findByTestAttr(wrapper, 'dataKeyDisplay')
     expect(dataKeyDisplay.text()).toBe(dataKey)
+  })
+})
+
+describe('Percentage difference', () => {
+  test('percentage does NOT display if data.length < 2', () => {
+    const data = [{ date: 'Mar 23', positive: 500 }]
+    const wrapper = setup({ data })
+
+    const percentDiff = findByTestAttr(wrapper, 'percentDiff')
+    expect(percentDiff.length).toBe(0)
+  })
+
+  test('percentage DOES display if data.length >= 2', () => {
+    const data = [
+      { date: 'Mar 23', positive: 500 },
+      { date: 'Mar 23', positive: 500 }
+    ]
+    const wrapper = setup({ data })
+
+    const percentDiff = findByTestAttr(wrapper, 'percentDiff')
+    expect(percentDiff.length).toBe(1)
+  })
+
+  test('displays percentage difference using returned value from percentDiff function', () => {
+    const data = [
+      { date: 'Mar 23', positive: 500 },
+      { date: 'Mar 23', positive: 600 }
+    ]
+    const dataKey = 'positive'
+    const wrapper = setup({ data, dataKey })
+
+    const diff = percentDiff(data[0][dataKey], data[1][dataKey])
+    const percentDiffValue = findByTestAttr(wrapper, 'percentDiffValue')
+    expect(percentDiffValue.text()).toBe(diff.percentage)
   })
 })

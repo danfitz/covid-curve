@@ -5,8 +5,8 @@ export default {
   ],
   colors: {
     primary: '#623CEA',
-    secondary: '#7BD9EA',
-    tertiary: '#89D3FF',
+    secondary: '#2DAEC5',
+    tertiary: '#0D9FF4',
     white: 'white',
     bg: '#F3F2F7',
     text: '#393743',
