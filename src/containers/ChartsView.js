@@ -43,14 +43,15 @@ export const ChartsView = ({
   }, [getCases, healthUnit])
 
   return (
-    <Box>
+    <Box data-test='chartsView'>
       <Hide>
         <Label htmlFor='healthUnits'>Public Health Units</Label>
       </Hide>
       <Select
-        id='city'
-        name='city'
-        defaultValue='All'
+        data-test='healthUnitSelect'
+        id='healthUnits'
+        name='healthUnits'
+        value={healthUnit}
         onChange={e => setHealthUnit(e.target.value)}
       >
         {healthUnits.map(unit => (
@@ -63,10 +64,7 @@ export const ChartsView = ({
         ))}
       </Select>
 
-      <Flex
-        data-test='chartsView'
-        flexWrap='wrap'
-      >
+      <Flex flexWrap='wrap'>
         <ChartCard
           data-test='totalChart'
           data={cases}
@@ -97,12 +95,16 @@ export const ChartsView = ({
 }
 
 ChartsView.propTypes = {
+  getCases: PropTypes.func.isRequired,
+  setHealthUnit: PropTypes.func.isRequired,
   cases: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string.isRequired,
     positive: PropTypes.number,
     resolved: PropTypes.number,
     deceased: PropTypes.number
-  })).isRequired
+  })).isRequired,
+  healthUnit: PropTypes.string.isRequired,
+  healthUnits: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 }
 
 const mapStateToProps = state => state
