@@ -4,9 +4,11 @@ import { db } from '../../firebase'
 import { setCases } from '../actions'
 import { GET_CASES } from '../actions/actionTypes'
 
+export const unitGetter = state => state.healthUnit
+
 export function* getCases() {
   try {
-    const healthUnit = yield select(state => state.healthUnit)
+    const healthUnit = yield select(unitGetter)
     const ref = db.collection('cases').doc(healthUnit)
 
     const doc = yield call([ref, ref.get])
