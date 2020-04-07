@@ -29,6 +29,7 @@ export const percentDiff = (num1, num2) => {
 
 const ChartCard = ({
   data,
+  title,
   dataKey,
   height,
   color,
@@ -115,11 +116,10 @@ const ChartCard = ({
                     mt: 2,
                     fontSize: 3,
                     color: 'unfocusedText',
-                    fontWeight: 'subheading',
-                    textTransform: 'capitalize'
+                    fontWeight: 'subheading'
                   }}
                 >
-                  {dataKey}
+                  {title ? title : dataKey}
                 </Text>
               </Heading>
             </Box>
@@ -186,6 +186,7 @@ const ChartCard = ({
 
 ChartCard.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string,
   dataKey: PropTypes.string.isRequired,
   height: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,

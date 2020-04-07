@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { getCases, setHealthUnit } from '../redux/actions'
 // Child components
 import ChartCard from '../components/ChartCard'
+import GrowthForecast from '../components/GrowthForecast'
 // UI components
 import { Flex, Box } from 'rebass/styled-components'
 import { Select, Label } from '@rebass/forms/styled-components'
@@ -59,15 +60,18 @@ export const ChartsView = ({
             key={unit}
             value={unit}
           >  
-            {unit === 'All' ? 'All Public Health Units' : unit}
+            {unit === 'All' ? 'All Ontario Public Health Units' : unit}
           </option>
         ))}
       </Select>
+
+      <GrowthForecast cases={cases} />
 
       <Flex flexWrap='wrap'>
         <ChartCard
           data-test='totalChart'
           data={cases}
+          title='Total cases'
           dataKey='total'
           sx={totalSx}
           height='20rem'
@@ -76,6 +80,7 @@ export const ChartsView = ({
         <ChartCard
           data-test='resolvedChart'
           data={cases}
+          title='Resolved cases'
           dataKey='resolved'
           sx={resolvedSx}
           height='20rem'
@@ -84,6 +89,7 @@ export const ChartsView = ({
         <ChartCard
           data-test='deceasedChart'
           data={cases}
+          title='Deceased cases'
           dataKey='deceased'
           sx={deceasedSx}
           height='20rem'

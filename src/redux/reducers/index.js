@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
 import { SET_CASES, SET_HEALTH_UNIT, SET_HEALTH_UNITS } from '../actions/actionTypes'
+import { includeGrowthFactors } from '../../utils'
 
 const cases = (state=[], action) => {
   switch (action.type) {
     case SET_CASES:
       const { cases } = action.payload
-      return cases
+      return includeGrowthFactors(cases, 'total')
     default:
       return state
   }
