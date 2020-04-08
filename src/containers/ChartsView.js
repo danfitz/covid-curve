@@ -9,8 +9,6 @@ import ChartCard from '../components/ChartCard'
 import GrowthForecast from '../components/GrowthForecast'
 // UI components
 import { Flex, Box } from 'rebass/styled-components'
-import { Select, Label } from '@rebass/forms/styled-components'
-import Hide from '../components/UI/Hide'
 // Assets
 import theme from '../theme'
 
@@ -34,10 +32,8 @@ const deceasedSx = {
 
 export const ChartsView = ({
   getCases,
-  setHealthUnit,
   cases,
-  healthUnit,
-  healthUnits
+  healthUnit
 }) => {
   useEffect(() => {
     getCases()
@@ -45,29 +41,9 @@ export const ChartsView = ({
 
   return (
     <Box data-test='chartsView'>
-      <Hide>
-        <Label htmlFor='healthUnits'>Public Health Units</Label>
-      </Hide>
-      <Select
-        data-test='healthUnitSelect'
-        id='healthUnits'
-        name='healthUnits'
-        value={healthUnit}
-        onChange={e => setHealthUnit(e.target.value)}
-      >
-        {healthUnits.map(unit => (
-          <option
-            key={unit}
-            value={unit}
-          >  
-            {unit === 'All' ? 'All Ontario Public Health Units' : unit}
-          </option>
-        ))}
-      </Select>
+      <GrowthForecast />
 
-      <GrowthForecast cases={cases} />
-
-      <Flex flexWrap='wrap'>
+      <Flex flexWrap='wrap' alignItems='center'>
         <ChartCard
           data-test='totalChart'
           data={cases}
@@ -94,7 +70,7 @@ export const ChartsView = ({
           sx={deceasedSx}
           height='20rem'
           icon='hourglass-end'
-          color={theme.colors.tertiary} />
+          color={theme.colors.danger} />
       </Flex>
     </Box>
   )
@@ -102,7 +78,6 @@ export const ChartsView = ({
 
 ChartsView.propTypes = {
   getCases: PropTypes.func.isRequired,
-  setHealthUnit: PropTypes.func.isRequired,
   cases: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string.isRequired,
     positive: PropTypes.number,
@@ -110,7 +85,6 @@ ChartsView.propTypes = {
     deceased: PropTypes.number
   })).isRequired,
   healthUnit: PropTypes.string.isRequired,
-  healthUnits: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 }
 
 const mapStateToProps = state => state

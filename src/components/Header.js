@@ -1,6 +1,8 @@
 import React from 'react'
-import { Flex, Heading, Text, Image, Link } from 'rebass/styled-components'
+import { Flex, Heading, Image, Link } from 'rebass/styled-components'
 import ontarioLogo from '../assets/images/ontarioLogo.png'
+import Hide from './UI/Hide'
+import { Pgh } from './UI/textComponents'
 
 const Header = () => (
   <header>
@@ -17,6 +19,7 @@ const Header = () => (
         as='h1'
         sx={{
           py: [3, 4],
+          my: 0,
           fontSize: [5, 6],
           borderBottomWidth: [3, 4],
           borderBottomStyle: 'solid',
@@ -29,38 +32,26 @@ const Header = () => (
           src={ontarioLogo}
           width={['8rem', '12rem']}
           ml={['-0.7rem', '-1.1rem']}
-          alt='Ontario' />
-          COVID-19 Curve
+          alt='' />
+          <Hide>Ontario</Hide> COVID-19 Curve
       </Heading>
-      <Text
+      <Pgh
         sx={{
           pt: [3, 4],
           fontSize: 3,
           color: 'unfocusedText'
         }}
       >
-        <p>
-          Check this site daily to get a live view of how well Ontario is managing to
-          {' '}
-          <Link
-            href='https://twitter.com/hashtag/FlattenTheCurve'
-            target='_blank'
-          >
-            #FlattenTheCurve
-          </Link>
-        </p>
-        <p>
-          Data sourced from
-          {' '}
-          <Link
-            href='https://data.ontario.ca/dataset?keywords_en=COVID-19'
-            target='_blank'
-          >
-            Ontario's Data API
-          </Link>
-          , which is updated every day at 10:30 AM
-        </p>
-      </Text>
+        Data updated every day at around 10:30 AM EST. Sourced from
+        {' '}
+        <Link
+          href='https://data.ontario.ca/dataset?keywords_en=COVID-19'
+          target='_blank'
+        >
+          Ontario's Data API
+        </Link>
+        .
+      </Pgh>
     </Flex>
   </header>
 )

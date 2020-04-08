@@ -4,7 +4,8 @@ import {
   faSmile,
   faHourglassEnd,
   faCaretUp,
-  faCaretDown
+  faCaretDown,
+  faChartLine
 } from '@fortawesome/free-solid-svg-icons'
 import {
   faGithub,
@@ -17,6 +18,7 @@ library.add(
   faHourglassEnd,
   faCaretUp,
   faCaretDown,
+  faChartLine,
   faGithub,
   faTwitter
 )

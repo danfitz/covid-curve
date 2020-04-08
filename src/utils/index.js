@@ -4,8 +4,11 @@ export const includeGrowthFactors = (data, dataKey) => {
   for (let i = 0; i < data.length; i++) {
     const newDatum = { ...data[i] }
 
-    if (i !== 0) {
-      const growthFactor = data[i][dataKey] / data[i-1][dataKey]
+    // Start at 3rd item
+    if (i >= 2) {
+      const todaysChange = data[i][dataKey] - data[i-1][dataKey]
+      const yesterdaysChange = data[i-1][dataKey] - data[i-2][dataKey]
+      const growthFactor = todaysChange / yesterdaysChange
   
       if (isFinite(growthFactor)) {
         newDatum.growthFactor = parseFloat(growthFactor.toFixed(2))

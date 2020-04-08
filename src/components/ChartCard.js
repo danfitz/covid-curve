@@ -34,7 +34,8 @@ const ChartCard = ({
   height,
   color,
   icon,
-  sx
+  sx,
+  displayType='last'
 }) => {
   let diff
   if (data.length >= 2) {
@@ -104,10 +105,18 @@ const ChartCard = ({
               <Heading
                 mt={1}
                 fontSize={5}
+                textAlign='left'
               >
-                <span data-test='lastValue'>
-                  {data[data.length-1][dataKey]}
-                </span>
+                { displayType === 'last' ? (
+                  <span data-test='lastValue'>
+                    {data[data.length-1][dataKey]}
+                  </span>
+                ) : null }
+                { displayType === 'average' ? (
+                  <span>
+                    {(data.reduce((a, b) => a + b[dataKey], 0) / data.length).toFixed(2)}
+                  </span>
+                ) : null }
                 {' '}
                 <Text
                   data-test='dataKeyDisplay'

@@ -1,5 +1,5 @@
 import React from 'react'
-import GrowthForecast from './GrowthForecast'
+import { GrowthForecast } from './GrowthForecast'
 import { shallow } from 'enzyme'
 import { findByTestAttr } from '../utils/testUtils'
 

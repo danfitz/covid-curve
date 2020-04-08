@@ -5,8 +5,10 @@ export default {
   ],
   colors: {
     primary: '#623CEA',
+    primaryFaded: '#DBD3F8',
     secondary: '#2DAEC5',
     tertiary: '#0D9FF4',
+    danger: '#FF0000',
     white: 'white',
     bg: '#F3F2F7',
     text: '#393743',
@@ -26,27 +28,86 @@ export default {
     body: 400,
     subheading: 600,
     heading: 700,
-    bold: 700,
+    bold: 600,
   },
   lineHeights: {
-    body: 1.5,
-    heading: 1.25,
+    // body: 1.5,
+    heading: 1.5,
+    text: 1.25,
   },
   shadows: {
     small: '0 0.05rem 0.08rem 0.05rem rgba(0,0,0,0.08)',
-    large: '0 0.2rem 1.5rem 0.1rem rgba(0,0,0,0.1)'
+    large: '0 0.2rem 1.5rem 0.1rem rgba(0,0,0,0.1)',
+    button: '0 0 0 0.15rem #623CEA'
   },
   radii: {
-    small: '0.5rem'
+    small: '0.5rem',
+    large: '5rem'
+  },
+  zIndices: {
+    overlay: 1000,
+    modal: 1100
+  },
+  variants: {
+    link: {
+      color: 'primary',
+      textDecoration: 'none',
+      fontWeight: 'bold',
+      background: 'transparent',
+      ':visited, :focus, :hover': {
+        textDecoration: 'underline',
+      }
+    },
+    badge: {
+      color: 'text',
+      bg: 'white',
+      borderRadius: 'large',
+      boxShadow: 'small',
+      py: 3,
+      px: 4,
+      fontWeight: 'bold',
+      fontSize: 2
+    }
+    // card: {}
+  },
+  text: {
+    heading: {
+      textAlign: 'center',
+      fontWeight: 'heading',
+      lineHeight: 'heading',
+      my: 4
+    },
+    text: {
+      color: 'text',
+      lineHeight: 'text',
+      fontSize: 3
+    }
+  },
+  buttons: {
+    primary: {
+      color: 'text',
+      bg: 'white',
+      borderRadius: 'large',
+      boxShadow: 'small',
+      py: 3,
+      px: 4,
+      fontWeight: 'bold',
+      fontSize: 2,
+      cursor: 'pointer',
+      ':focus, :hover': {
+        color: 'primary',
+        bg: 'primaryFaded',
+      }
+    },
+    secondary: {
+      color: 'primary',
+      textDecoration: 'none',
+      fontWeight: 'bold',
+      background: 'transparent',
+      textDecoration: 'underline',
+      ':visited, :focus, :hover': {
+        textDecoration: 'none'
+      }
+    },
   }
-  // variants: {
-  // },
-  // text: {
-  // },
-  // buttons: {
-  //   primary: {
-  //     color: 'white',
-  //     bg: 'primary',
-  //   }
-  // }
 }
