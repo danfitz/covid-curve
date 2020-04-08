@@ -42,15 +42,26 @@ const Header = () => (
           color: 'unfocusedText'
         }}
       >
-        Data updated every day at around 10:30 AM EST. Sourced from
+        Data updated daily & sourced from the
         {' '}
         <Link
           href='https://data.ontario.ca/dataset?keywords_en=COVID-19'
           target='_blank'
         >
-          Ontario's Data API
+          official Ontario government
         </Link>
-        .
+        {' '}
+        website
+      </Pgh>
+      <Pgh
+        sx={{
+          mt: 2,
+          fontSize: 1,
+          color: 'unfocusedText',
+          fontStyle: 'italic'
+        }}
+      >
+        Note: Numbers reported by your municipal government may differ from what the Ontario government reports
       </Pgh>
     </Flex>
   </header>

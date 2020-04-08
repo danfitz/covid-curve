@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { setHealthUnit } from '../redux/actions'
 // UI Components
+import BeatLoader from 'react-spinners/BeatLoader'
 import { Flex, Box, Heading, Text, Button } from 'rebass/styled-components'
 import { Select, Label } from '@rebass/forms/styled-components'
 import ChartCard from './ChartCard'
@@ -80,66 +81,78 @@ export const GrowthForecast = ({
           alignItems: 'center'
         }}
       >
-        <Heading
-          as='h2'
-          sx={{
-            fontSize: 4,
-            my: 0,
-            mb: 2,
-          }}
-        >
-          Has the curve flattened for...?
-        </Heading>
+        { lastWeekCases.length ? (
+          <>
+            <Heading
+              as='h2'
+              sx={{
+                fontSize: 4,
+                my: 0,
+                mb: 2,
+              }}
+            >
+              Has the curve flattened for...?
+            </Heading>
 
-        <Hide>
-          <Label htmlFor='healthUnits'>Public Health Units</Label>
-        </Hide>
-        <Select
-          data-test='healthUnitSelect'
-          id='healthUnits'
-          name='healthUnits'
-          value={healthUnit}
-          onChange={e => setHealthUnit(e.target.value)}
-          sx={{
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: 4,
-          }}
-        >
-          {healthUnits.map(unit => (
-            <option
-              style={{ fontWeight: 400, color: 'black' }}
-              key={unit}
-              value={unit}
-            >  
-              {unit === 'All' ? 'Ontario' : unit}
-            </option>
-          ))}
-        </Select>
+            <Hide>
+              <Label htmlFor='healthUnits'>Public Health Units</Label>
+            </Hide>
+            <Select
+              data-test='healthUnitSelect'
+              id='healthUnits'
+              name='healthUnits'
+              value={healthUnit}
+              onChange={e => setHealthUnit(e.target.value)}
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: 4,
+              }}
+            >
+              {healthUnits.map(unit => (
+                <option
+                  style={{ fontWeight: 400, color: 'black' }}
+                  key={unit}
+                  value={unit}
+                >  
+                  {unit === 'All' ? 'Ontario' : unit}
+                </option>
+              ))}
+            </Select>
 
-        <Pgh
-          variant='variants.badge'
-          sx={{
-            fontSize: 4,
-            color: healthColor,
-            my: 4,
-            fontWeight: 'heading',
-            borderRadius: ['small', 'large']
-          }}
-        >
-          {healthCheck}
-        </Pgh>
+            <Pgh
+              variant='variants.badge'
+              sx={{
+                fontSize: 4,
+                color: healthColor,
+                my: 4,
+                fontWeight: 'heading',
+                borderRadius: ['small', 'large']
+              }}
+            >
+              {healthCheck}
+            </Pgh>
 
-        <Button
-          variant='secondary'
-          sx={{
-            color: 'primary',
-            cursor: 'pointer'
-          }}
-          onClick={() => setModalOpen(true)}
-        >
-          See details on how this is calculated
-        </Button>
+            <Button
+              variant='secondary'
+              sx={{
+                color: 'primary',
+                cursor: 'pointer'
+              }}
+              onClick={() => setModalOpen(true)}
+            >
+              See details on how this is calculated
+            </Button>
+          </>
+        ) : (
+          <Flex
+            justifyContent='center'
+            alignItems='center'
+            height='100%'
+          >
+            <BeatLoader data-test='loader' color={theme.colors.primary} loading={true} size={20} />
+          </Flex>
+        ) }
       </Flex>
 
       <Modal
