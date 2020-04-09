@@ -101,7 +101,6 @@ export default {
     },
     secondary: {
       color: 'primary',
-      textDecoration: 'none',
       fontWeight: 'bold',
       background: 'transparent',
       textDecoration: 'underline',

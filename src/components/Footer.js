@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box, Text, Link } from 'rebass/styled-components'
+import { Flex, Box, Link } from 'rebass/styled-components'
 import Hide from './UI/Hide'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Pgh } from './UI/textComponents'

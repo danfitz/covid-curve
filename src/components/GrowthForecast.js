@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { setHealthUnit } from '../redux/actions'
 // UI Components
 import BeatLoader from 'react-spinners/BeatLoader'
-import { Flex, Box, Heading, Text, Button } from 'rebass/styled-components'
+import { Flex, Heading, Button } from 'rebass/styled-components'
 import { Select, Label } from '@rebass/forms/styled-components'
 import ChartCard from './ChartCard'
 import Modal from './UI/Modal'
