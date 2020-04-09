@@ -30,6 +30,10 @@ const organizeCasesByHealthUnit = cases => {
       const date = moment(cur['ACCURATE_EPISODE_DATE']).format('MMM D')
       const outcome = cur['OUTCOME1']
 
+      // Skip entries with no public health unit
+      if (healthUnit === '(blank)') return acc
+
+      // Create new key/value pair if health unit is new
       if (!acc[healthUnit]) acc[healthUnit] = []
 
       const lastDay = acc[healthUnit][acc[healthUnit].length - 1]
