@@ -40,9 +40,9 @@ export const GrowthForecast = ({
   setHealthUnit
 }) => {
   const filteredCases = cases.filter(c => c.growthFactor !== undefined) // ignores empty values
-  const lastWeekCases = filteredCases.slice(filteredCases.length - 8) // last 7 reported days
+  const recentCases = filteredCases.slice(filteredCases.length - 14) // last 14 reported days
 
-  const avgGrowthFactor = lastWeekCases.reduce((a, b) => a + b.growthFactor, 0) / lastWeekCases.length // mean
+  const avgGrowthFactor = recentCases.reduce((a, b) => a + b.growthFactor, 0) / recentCases.length // mean
 
   let healthCheck
   let healthColor
@@ -81,7 +81,7 @@ export const GrowthForecast = ({
           alignItems: 'center'
         }}
       >
-        { lastWeekCases.length ? (
+        { recentCases.length ? (
           <>
             <Heading
               as='h2'
@@ -160,7 +160,7 @@ export const GrowthForecast = ({
         close={() => setModalOpen(false)}
       >
         <Heading as='h2' fontSize={5} mt={5} mb={4}>
-          In the last 7 days in
+          In the last {recentCases.length} reported days in
           {' '}
           <span style={{ color: theme.colors.primary }}>
             {healthUnit === 'All' ? 'Ontario' : healthUnit}
@@ -179,8 +179,8 @@ export const GrowthForecast = ({
 
         <ChartCard
             data-test='growthChart'
-            data={lastWeekCases}
-            title='Growth factor (last 7 days)'
+            data={recentCases}
+            title={`Growth factor (last ${recentCases.length} reported days)`}
             dataKey='growthFactor'
             displayType='average'
             height='15rem'

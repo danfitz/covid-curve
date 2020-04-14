@@ -7,19 +7,17 @@ import { Pgh } from './UI/textComponents'
 const Footer = () => (
   <footer>
     <Flex mt={2} mb={5} flexDirection='column' justifyContent='center' alignItems='center'>
-      <Pgh color='unfocusedText' my={3}>
-        Data comes directly from the
+      <Pgh color='unfocusedText' my={3} textAlign='center'>
+        Data sourced directly from the
         {' '}
         <Link
           href='https://data.ontario.ca/dataset?keywords_en=COVID-19'
           target='_blank'
         >
-          official Ontario government
+          Ontario government
         </Link>
-        {' '}
-        website
       </Pgh>
-      <Pgh color='unfocusedText' mb={3}>
+      <Pgh color='unfocusedText' mb={3} textAlign='center'>
         Dan Fitz © 2020
       </Pgh>
       <Box>
