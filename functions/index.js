@@ -24,11 +24,11 @@ const cleanAllCases = cases => {
 }
 
 const organizeCasesByHealthUnit = cases => {
-  return sortByDate(cases, 'ACCURATE_EPISODE_DATE')
+  return sortByDate(cases, 'Accurate_Episode_Date')
     .reduce((acc, cur) => {
       const healthUnit = cur['Reporting_PHU']
-      const date = moment(cur['ACCURATE_EPISODE_DATE']).format('MMM D')
-      const outcome = cur['OUTCOME1']
+      const date = moment(cur['Accurate_Episode_Date']).format('MMM D')
+      const outcome = cur['Outcome1']
 
       // Skip entries with no public health unit
       if (healthUnit === '(blank)') return acc
