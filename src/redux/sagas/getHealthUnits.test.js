@@ -18,7 +18,7 @@ describe('generator for getHealthUnits', () => {
   test('executes setHealthUnits action, passing healthUnits as argument', () => {
     const dummyDoc = {
       data: () => ({
-        options: ['All', 'Peel Public Health', 'Toronto Public Health']
+        healthUnits: ['All', 'Peel Public Health', 'Toronto Public Health']
       })
     }
 

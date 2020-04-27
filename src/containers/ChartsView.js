@@ -8,7 +8,7 @@ import { getCases, setHealthUnit } from '../redux/actions'
 import ChartCard from '../components/ChartCard'
 import GrowthForecast from '../components/GrowthForecast'
 // UI components
-import { Flex, Box } from 'rebass/styled-components'
+import { Flex } from 'rebass/styled-components'
 // Assets
 import theme from '../theme'
 
@@ -30,7 +30,7 @@ const deceasedSx = {
   pr: 0
 }
 
-export const ChartsView = ({
+const ChartsView = ({
   getCases,
   cases,
   healthUnit
@@ -40,12 +40,15 @@ export const ChartsView = ({
   }, [getCases, healthUnit])
 
   return (
-    <Box data-test='chartsView'>
+    <React.Fragment>
       <GrowthForecast />
 
-      <Flex flexWrap='wrap' alignItems='center'>
+      <Flex
+        as='section'
+        flexWrap='wrap'
+        alignItems='center'
+      >
         <ChartCard
-          data-test='totalChart'
           data={cases}
           title='Total cases'
           dataKey='total'
@@ -54,7 +57,6 @@ export const ChartsView = ({
           icon='virus'
           color={theme.colors.primary} />
         <ChartCard
-          data-test='resolvedChart'
           data={cases}
           title='Resolved cases'
           dataKey='resolved'
@@ -63,7 +65,6 @@ export const ChartsView = ({
           icon='smile'
           color={theme.colors.secondary} />
         <ChartCard
-          data-test='deceasedChart'
           data={cases}
           title='Deceased cases'
           dataKey='deceased'
@@ -72,7 +73,7 @@ export const ChartsView = ({
           icon='hourglass-end'
           color={theme.colors.danger} />
       </Flex>
-    </Box>
+    </React.Fragment>
   )
 }
 
@@ -84,7 +85,7 @@ ChartsView.propTypes = {
     resolved: PropTypes.number,
     deceased: PropTypes.number
   })).isRequired,
-  healthUnit: PropTypes.string.isRequired,
+  healthUnit: PropTypes.string.isRequired
 }
 
 const mapStateToProps = state => state

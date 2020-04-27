@@ -119,6 +119,7 @@ const ChartCard = ({
                 ) : null }
                 {' '}
                 <Text
+                  as='span'
                   data-test='dataKeyDisplay'
                   sx={{
                     display: 'block',

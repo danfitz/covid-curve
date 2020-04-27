@@ -5,17 +5,19 @@ import { setCases } from '../actions'
 
 describe('generator for getCases', () => {
   const gen = getCases()
-  const healthUnit = 'Toronto Public Health'
-
+  
   test('selects current health unit', () => {
     expect(gen.next().value)
-      .toMatchObject(
-        select(unitGetter)
+    .toMatchObject(
+      select(unitGetter)
       )
-  })
-
+    })
+    
+    
   test('makes GET request for Firestore data at healthUnit doc', () => {
+    const healthUnit = 'Toronto Public Health'
     const ref = db.collection('cases').doc(healthUnit)
+
     expect(gen.next(healthUnit).value)
       .toEqual(
         call([ref, ref.get])

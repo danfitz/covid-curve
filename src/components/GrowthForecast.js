@@ -68,6 +68,7 @@ export const GrowthForecast = ({
   return (
     <React.Fragment>
       <Flex
+        as='section'
         data-test='growthForecast'
         sx={{
           textAlign: 'center',

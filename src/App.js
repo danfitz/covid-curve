@@ -15,7 +15,9 @@ const App = () => (
       <GlobalStyle />
       <Wrapper>
         <Header />
-        <ChartsView />
+        <main>
+          <ChartsView />
+        </main>
         <Footer />
       </Wrapper>
     </ThemeProvider>
