@@ -21,22 +21,23 @@ export const includeGrowthFactors = (data, dataKey) => {
   return newData
 }
 
-export const calcMedianGrowthFactor = cases => {
+export const calcMedian = (key, cases) => {
   if (cases.length === 0) return undefined
 
-  const sortedCases = cases.sort((a, b) => a.growthFactor - b.growthFactor)
-  console.log(sortedCases)
+  cases = [...cases] // To prevent mutation of sort
 
-  let medianGrowthFactor
+  const sortedCases = cases.sort((a, b) => a[key] - b[key])
+
+  let median
 
   if (sortedCases.length % 2 !== 0) {
     const middleCase = sortedCases[Math.floor(sortedCases.length / 2)]
-    medianGrowthFactor = middleCase.growthFactor
+    median = middleCase[key]
   } else {
     const middleLeftCase = sortedCases[(sortedCases.length / 2) - 1]
     const middleRightCase = sortedCases[sortedCases.length / 2]
-    medianGrowthFactor = (middleLeftCase.growthFactor + middleRightCase.growthFactor) / 2
+    median = (middleLeftCase[key] + middleRightCase[key]) / 2
   }
 
-  return medianGrowthFactor.toFixed(2)
+  return median.toFixed(2)
 }

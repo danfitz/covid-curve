@@ -15,7 +15,7 @@ import { Pgh } from './UI/textComponents'
 import Hide from './UI/Hide'
 import theme from '../theme'
 // Utils
-import { calcMedianGrowthFactor } from '../utils'
+import { calcMedian } from '../utils'
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -44,7 +44,7 @@ export const GrowthForecast = ({
   const filteredCases = cases.filter(c => c.growthFactor !== undefined) // ignores empty values
   const recentCases = filteredCases.slice(filteredCases.length - 14) // last 14 reported days
 
-  const medianGrowthFactor = calcMedianGrowthFactor(recentCases)
+  const medianGrowthFactor = calcMedian('growthFactor', recentCases)
 
   let healthCheck
   let healthColor
@@ -183,9 +183,9 @@ export const GrowthForecast = ({
         <ChartCard
           data-test='growthChart'
           data={recentCases}
-          title={`Growth factor (last ${recentCases.length} reported days)`}
+          title={`Median Growth factor (last ${recentCases.length} reported days)`}
           dataKey='growthFactor'
-          displayType='average'
+          displayType='median'
           height='15rem'
           icon='chart-line'
           color={theme.colors.tertiary} />

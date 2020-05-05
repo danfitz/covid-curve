@@ -5,6 +5,7 @@ import { Flex, Box, Heading, Text } from 'rebass/styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import theme from '../theme'
 import BeatLoader from 'react-spinners/BeatLoader'
+import { calcMedian } from '../utils'
 
 export const percentDiff = (num1, num2) => {
   if (num1 === 0 && num2 === 0) {
@@ -35,12 +36,12 @@ const ChartCard = ({
   color,
   icon,
   sx,
-  displayType='last'
+  displayType = 'last'
 }) => {
   let diff
   if (data.length >= 2) {
-    const secondLast = data[data.length-2][dataKey]
-    const last = data[data.length-1][dataKey]
+    const secondLast = data[data.length - 2][dataKey]
+    const last = data[data.length - 1][dataKey]
     diff = percentDiff(secondLast, last)
   }
 
@@ -60,7 +61,7 @@ const ChartCard = ({
           overflow: 'hidden'
         }}
       >
-        { data.length ? (
+        {data.length ? (
           <>
             <Box
               sx={{
@@ -69,7 +70,7 @@ const ChartCard = ({
                 left: [4, 5]
               }}
             >
-              { icon ? (
+              {icon ? (
                 <FontAwesomeIcon
                   data-test='icon'
                   style={{
@@ -82,8 +83,8 @@ const ChartCard = ({
                     height: theme.space[5]
                   }}
                   icon={icon} />
-              ) : null }
-              { diff ? (
+              ) : null}
+              {diff ? (
                 <Box
                   data-test='percentDiff'
                   sx={{
@@ -101,22 +102,22 @@ const ChartCard = ({
                     </span>
                   </Text>
                 </Box>
-              ) : null }
+              ) : null}
               <Heading
                 mt={1}
                 fontSize={5}
                 textAlign='left'
               >
-                { displayType === 'last' ? (
+                {displayType === 'last' ? (
                   <span data-test='lastValue'>
-                    {data[data.length-1][dataKey]}
+                    {data[data.length - 1][dataKey]}
                   </span>
-                ) : null }
-                { displayType === 'average' ? (
+                ) : null}
+                {displayType === 'median' ? (
                   <span>
-                    {(data.reduce((a, b) => a + b[dataKey], 0) / data.length).toFixed(2)}
+                    {calcMedian(dataKey, data)}
                   </span>
-                ) : null }
+                ) : null}
                 {' '}
                 <Text
                   as='span'
@@ -138,8 +139,8 @@ const ChartCard = ({
               <AreaChart data-test='areaChart' data={data} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient data-test='linearGradient' id={dataKey} x1='0' y1='0' x2='0' y2='1'>
-                    <stop offset='0%' stopColor={color} stopOpacity={0.4}/>
-                    <stop offset='100%' stopColor={color} stopOpacity={0.1}/>
+                    <stop offset='0%' stopColor={color} stopOpacity={0.4} />
+                    <stop offset='100%' stopColor={color} stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
                 <Area
@@ -175,20 +176,20 @@ const ChartCard = ({
                     textAlign: 'center',
                     padding: '0.25rem'
                   }}
-                  />
-                  <XAxis dataKey='date' hide={true} />
+                />
+                <XAxis dataKey='date' hide={true} />
               </AreaChart>
             </ResponsiveContainer>
           </>
         ) : (
-          <Flex
-            justifyContent='center'
-            alignItems='center'
-            height='100%'
-          >
-            <BeatLoader data-test='loader' color={color} loading={true} size={20} />
-          </Flex>
-        ) }
+            <Flex
+              justifyContent='center'
+              alignItems='center'
+              height='100%'
+            >
+              <BeatLoader data-test='loader' color={color} loading={true} size={20} />
+            </Flex>
+          )}
       </Box>
     </Box>
   )
