@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { setHealthUnit } from '../../redux/actions'
 // UI Components
 import BeatLoader from 'react-spinners/BeatLoader'
-import { Box, Flex, Heading, Button } from 'rebass/styled-components'
+import { Box, Flex, Text, Heading, Button } from 'rebass/styled-components'
 import ChartCard from '../ChartCard'
 import Modal from '../UI/Modal'
 import { Pgh } from '../UI/textComponents'
@@ -116,15 +116,15 @@ export const GrowthForecast = ({
                     maxWidth: '90%'
                   })
                 }} />
-              <span style={{ marginLeft: theme.space[2] }}>?</span>
+              <Text as='span' ml={2}>?</Text>
             </Heading>
 
             <Pgh
               variant='variants.badge'
               sx={{
-                fontSize: 4,
+                fontSize: [4, 4, 5],
                 color: healthColor,
-                my: 4,
+                my: [4, 4, 5],
                 mx: 'auto',
                 fontWeight: 'heading',
                 borderRadius: ['small', 'large'],
