@@ -4,18 +4,17 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 // Redux
 import { connect } from 'react-redux'
-import { setHealthUnit } from '../redux/actions'
+import { setHealthUnit } from '../../redux/actions'
 // UI Components
 import BeatLoader from 'react-spinners/BeatLoader'
-import { Flex, Heading, Button } from 'rebass/styled-components'
-import { Select, Label } from '@rebass/forms/styled-components'
-import ChartCard from './ChartCard'
-import Modal from './UI/Modal'
-import { Pgh } from './UI/textComponents'
-import Hide from './UI/Hide'
-import theme from '../theme'
+import { Box, Flex, Heading, Button } from 'rebass/styled-components'
+import ChartCard from '../ChartCard'
+import Modal from '../UI/Modal'
+import { Pgh } from '../UI/textComponents'
+import Select from '../UI/Select'
+import theme from '../../theme'
 // Utils
-import { calcMedian } from '../utils'
+import { calcMedian } from '../../utils'
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -34,6 +33,13 @@ const Iframe = styled.iframe`
   margin: 0 auto 2rem;
   display: block;
 `
+
+const convertOptions = options => {
+  return options.map(option => ({
+    value: option,
+    label: option === 'All' ? 'Ontario' : option
+  }))
+}
 
 export const GrowthForecast = ({
   cases,
@@ -67,9 +73,12 @@ export const GrowthForecast = ({
 
   const [modalOpen, setModalOpen] = useState(false)
 
+  const handleSelect = selected => setHealthUnit(selected.value)
+  const huOptions = convertOptions(healthUnits)
+
   return (
     <React.Fragment>
-      <Flex
+      <Box
         as='section'
         data-test='growthForecast'
         sx={{
@@ -78,10 +87,7 @@ export const GrowthForecast = ({
           bg: 'primaryFaded',
           color: 'primary',
           borderRadius: 'small',
-          boxShadow: 'small',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
+          boxShadow: 'small'
         }}
       >
         {recentCases.length ? (
@@ -94,34 +100,24 @@ export const GrowthForecast = ({
                 mb: 2,
               }}
             >
-              Has the curve flattened for...?
+              Has the curve flattened for
+              {' '}
+              <Select
+                name='health units'
+                options={huOptions}
+                defaultValue={huOptions[0]}
+                isSearchable
+                onChange={handleSelect}
+                styles={{
+                  container: styles => ({
+                    ...styles,
+                    display: 'inline-block',
+                    width: '30rem',
+                    maxWidth: '90%'
+                  })
+                }} />
+              <span style={{ marginLeft: theme.space[2] }}>?</span>
             </Heading>
-
-            <Hide>
-              <Label htmlFor='healthUnits'>Public Health Units</Label>
-            </Hide>
-            <Select
-              data-test='healthUnitSelect'
-              id='healthUnits'
-              name='healthUnits'
-              value={healthUnit}
-              onChange={e => setHealthUnit(e.target.value)}
-              sx={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-                fontSize: 4,
-              }}
-            >
-              {healthUnits.map(unit => (
-                <option
-                  style={{ fontWeight: 400, color: 'black' }}
-                  key={unit}
-                  value={unit}
-                >
-                  {unit === 'All' ? 'Ontario' : unit}
-                </option>
-              ))}
-            </Select>
 
             <Pgh
               variant='variants.badge'
@@ -129,8 +125,11 @@ export const GrowthForecast = ({
                 fontSize: 4,
                 color: healthColor,
                 my: 4,
+                mx: 'auto',
                 fontWeight: 'heading',
-                borderRadius: ['small', 'large']
+                borderRadius: ['small', 'large'],
+                width: '20rem',
+                maxWidth: '100%'
               }}
             >
               {healthCheck}
@@ -156,7 +155,7 @@ export const GrowthForecast = ({
               <BeatLoader data-test='loader' color={theme.colors.primary} loading={true} size={20} />
             </Flex>
           )}
-      </Flex>
+      </Box>
 
       <Modal
         active={modalOpen}
