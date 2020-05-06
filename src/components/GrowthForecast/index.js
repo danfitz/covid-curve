@@ -106,7 +106,7 @@ export const GrowthForecast = ({
                 name='health units'
                 options={huOptions}
                 defaultValue={huOptions[0]}
-                isSearchable
+                isSearchable={false}
                 onChange={handleSelect}
                 styles={{
                   container: styles => ({
@@ -126,6 +126,7 @@ export const GrowthForecast = ({
                 color: healthColor,
                 my: [4, 4, 5],
                 mx: 'auto',
+                p: [3, 3, 4],
                 fontWeight: 'heading',
                 borderRadius: ['small', 'large'],
                 width: '20rem',

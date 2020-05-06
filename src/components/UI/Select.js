@@ -28,7 +28,8 @@ const renderOption = (styles, state) => ({
   ...styles,
   color: theme.colors.text,
   background: state.isSelected ? theme.colors.primaryFaded : 'transparent',
-  fontWeight: state.isSelected ? theme.fontWeights.bold : theme.fontWeights.body
+  fontWeight: state.isSelected ? theme.fontWeights.bold : theme.fontWeights.body,
+  fontSize: theme.fontSizes[2]
 })
 
 const renderDropdown = styles => ({
