@@ -102,21 +102,22 @@ export const GrowthForecast = ({
             >
               Has the curve flattened for
               {' '}
-              <Select
-                name='health units'
-                options={huOptions}
-                defaultValue={huOptions[0]}
-                isSearchable={false}
-                onChange={handleSelect}
-                styles={{
-                  container: styles => ({
-                    ...styles,
-                    display: 'inline-block',
-                    width: '30rem',
-                    maxWidth: '90%'
-                  })
-                }} />
-              <Text as='span' ml={2}>?</Text>
+              <Text as='span' display='block'>
+                <Select
+                  name='health units'
+                  options={huOptions}
+                  defaultValue={huOptions[0]}
+                  onChange={handleSelect}
+                  styles={{
+                    container: styles => ({
+                      ...styles,
+                      display: 'inline-block',
+                      width: '30rem',
+                      maxWidth: '90%'
+                    })
+                  }} />
+                <Text as='span' ml={2}>?</Text>
+              </Text>
             </Heading>
 
             <Pgh
