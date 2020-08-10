@@ -1,30 +1,31 @@
 // Modules
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 // Redux
-import { connect } from 'react-redux'
-import { setHealthUnit } from '../../redux/actions'
+import { connect } from 'react-redux';
+import { setHealthUnit } from '../../redux/actions';
 // UI Components
-import BeatLoader from 'react-spinners/BeatLoader'
-import { Box, Flex, Text, Heading, Button } from 'rebass/styled-components'
-import ChartCard from '../ChartCard'
-import Modal from '../UI/Modal'
-import { Pgh } from '../UI/textComponents'
-import Select from '../UI/Select'
-import theme from '../../theme'
+import BeatLoader from 'react-spinners/BeatLoader';
+import { Box, Flex, Text, Heading, Button } from 'rebass/styled-components';
+import ChartCard from '../ChartCard';
+import Modal from '../UI/Modal';
+import { Pgh } from '../UI/textComponents';
+import Select from '../UI/Select';
+import theme from '../../theme';
 // Utils
-import { calcMedian } from '../../utils'
+import { calcMedian } from '../../utils';
 
 const Table = styled.table`
   border-collapse: collapse;
   margin: 0 auto;
 
-  th, td {
+  th,
+  td {
     border: 0.05rem solid ${({ theme }) => theme.colors.text};
     padding: 0.5rem;
   }
-`
+`;
 
 const Iframe = styled.iframe`
   width: 100%;
@@ -32,49 +33,49 @@ const Iframe = styled.iframe`
   height: 18rem;
   margin: 0 auto 2rem;
   display: block;
-`
+`;
 
 const convertOptions = options => {
   return options.map(option => ({
     value: option,
-    label: option === 'All' ? 'Ontario' : option
-  }))
-}
+    label: option === 'All' ? 'Ontario' : option,
+  }));
+};
 
 export const GrowthForecast = ({
   cases,
   healthUnit,
   healthUnits,
-  setHealthUnit
+  setHealthUnit,
 }) => {
-  const filteredCases = cases.filter(c => c.growthFactor !== undefined) // ignores empty values
-  const recentCases = filteredCases.slice(filteredCases.length - 14) // last 14 reported days
+  const filteredCases = cases.filter(c => c.growthFactor !== undefined); // ignores empty values
+  const recentCases = filteredCases.slice(filteredCases.length - 14); // last 14 reported days
 
-  const medianGrowthFactor = calcMedian('growthFactor', recentCases)
+  const medianGrowthFactor = calcMedian('growthFactor', recentCases);
 
-  let healthCheck
-  let healthColor
+  let healthCheck;
+  let healthColor;
   if (medianGrowthFactor >= 1.15) {
-    healthCheck = 'Not flattening'
-    healthColor = 'red'
+    healthCheck = 'Not flattening';
+    healthColor = 'red';
   } else if (medianGrowthFactor > 1) {
-    healthCheck = 'Not flattening but growing more slowly'
-    healthColor = 'orange'
+    healthCheck = 'Not flattening but growing more slowly';
+    healthColor = 'orange';
   } else if (medianGrowthFactor > 0.85) {
-    healthCheck = 'Starting to flatten'
-    healthColor = 'darkgreen'
+    healthCheck = 'Flattening slowly';
+    healthColor = 'darkgreen';
   } else if (medianGrowthFactor > 0) {
-    healthCheck = 'Flattening quickly'
-    healthColor = 'green'
+    healthCheck = 'Flattening quickly';
+    healthColor = 'green';
   } else {
-    healthCheck = 'Flattened'
-    healthColor = 'limegreen'
+    healthCheck = 'Flattened';
+    healthColor = 'limegreen';
   }
 
-  const [modalOpen, setModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const handleSelect = selected => setHealthUnit(selected.value)
-  const huOptions = convertOptions(healthUnits)
+  const handleSelect = selected => setHealthUnit(selected.value);
+  const huOptions = convertOptions(healthUnits);
 
   return (
     <React.Fragment>
@@ -87,7 +88,7 @@ export const GrowthForecast = ({
           bg: 'primaryFaded',
           color: 'primary',
           borderRadius: 'small',
-          boxShadow: 'small'
+          boxShadow: 'small',
         }}
       >
         {recentCases.length ? (
@@ -100,8 +101,7 @@ export const GrowthForecast = ({
                 mb: 2,
               }}
             >
-              Has the curve flattened for
-              {' '}
+              Has the curve flattened for{' '}
               <Text as='span' display='block'>
                 <Select
                   name='health units'
@@ -113,10 +113,13 @@ export const GrowthForecast = ({
                       ...styles,
                       display: 'inline-block',
                       width: '30rem',
-                      maxWidth: '90%'
-                    })
-                  }} />
-                <Text as='span' ml={2}>?</Text>
+                      maxWidth: '90%',
+                    }),
+                  }}
+                />
+                <Text as='span' ml={2}>
+                  ?
+                </Text>
               </Text>
             </Heading>
 
@@ -131,7 +134,7 @@ export const GrowthForecast = ({
                 fontWeight: 'heading',
                 borderRadius: ['small', 'large'],
                 width: '20rem',
-                maxWidth: '100%'
+                maxWidth: '100%',
               }}
             >
               {healthCheck}
@@ -141,7 +144,7 @@ export const GrowthForecast = ({
               variant='secondary'
               sx={{
                 color: 'primary',
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
               onClick={() => setModalOpen(true)}
             >
@@ -149,36 +152,31 @@ export const GrowthForecast = ({
             </Button>
           </>
         ) : (
-            <Flex
-              justifyContent='center'
-              alignItems='center'
-              height='100%'
-            >
-              <BeatLoader data-test='loader' color={theme.colors.primary} loading={true} size={20} />
-            </Flex>
-          )}
+          <Flex justifyContent='center' alignItems='center' height='100%'>
+            <BeatLoader
+              data-test='loader'
+              color={theme.colors.primary}
+              loading={true}
+              size={20}
+            />
+          </Flex>
+        )}
       </Box>
 
-      <Modal
-        active={modalOpen}
-        close={() => setModalOpen(false)}
-      >
+      <Modal active={modalOpen} close={() => setModalOpen(false)}>
         <Heading as='h2' fontSize={5} mt={5} mb={4}>
-          In the last {recentCases.length} reported days in
-          {' '}
+          In the last {recentCases.length} reported days in{' '}
           <span style={{ color: theme.colors.primary }}>
             {healthUnit === 'All' ? 'Ontario' : healthUnit}
           </span>
-          , median growth factor has been
-          {' '}
-          <span style={{ color: healthColor }}>
-            {medianGrowthFactor}
-          </span>
+          , median growth factor has been{' '}
+          <span style={{ color: healthColor }}>{medianGrowthFactor}</span>
         </Heading>
 
         <Pgh color='unfocusedText' textAlign='center' mb={2}>
           <span style={{ fontWeight: 700 }}>Rule of thumb: </span>
-          We know the curve is flattening when the growth factor is less than or equal to 1
+          We know the curve is flattening when the growth factor is less than or
+          equal to 1
         </Pgh>
 
         <ChartCard
@@ -189,9 +187,12 @@ export const GrowthForecast = ({
           displayType='median'
           height='15rem'
           icon='chart-line'
-          color={theme.colors.tertiary} />
+          color={theme.colors.tertiary}
+        />
 
-        <Heading as='h3' mt={5} mb={2}>Legend</Heading>
+        <Heading as='h3' mt={5} mb={2}>
+          Legend
+        </Heading>
         <Table>
           <thead>
             <tr>
@@ -206,7 +207,9 @@ export const GrowthForecast = ({
             </tr>
             <tr>
               <td>1.1 - 1.14</td>
-              <td style={{ color: 'orange' }}>Not flattening but growing slowly</td>
+              <td style={{ color: 'orange' }}>
+                Not flattening but growing slowly
+              </td>
             </tr>
             <tr>
               <td>0.86 - 1</td>
@@ -223,36 +226,43 @@ export const GrowthForecast = ({
           </tbody>
         </Table>
 
-        <Heading as='h3' mt={5} mb={2}>What is a growth factor? How are these calculations made?</Heading>
-        <Iframe src='https://www.youtube.com/embed/Kas0tIxDvrg' frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></Iframe>
-
+        <Heading as='h3' mt={5} mb={2}>
+          What is a growth factor? How are these calculations made?
+        </Heading>
+        <Iframe
+          src='https://www.youtube.com/embed/Kas0tIxDvrg'
+          frameborder='0'
+          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+          allowfullscreen
+        ></Iframe>
       </Modal>
     </React.Fragment>
-  )
-}
+  );
+};
 
 GrowthForecast.propTypes = {
   setHealthUnit: PropTypes.func.isRequired,
-  cases: PropTypes.arrayOf(PropTypes.shape({
-    date: PropTypes.string.isRequired,
-    positive: PropTypes.number,
-    resolved: PropTypes.number,
-    deceased: PropTypes.number
-  })).isRequired,
+  cases: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      positive: PropTypes.number,
+      resolved: PropTypes.number,
+      deceased: PropTypes.number,
+    })
+  ).isRequired,
   healthUnit: PropTypes.string.isRequired,
-  healthUnits: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
-}
+  healthUnits: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+};
 
-const mapStateToProps = state => state
+const mapStateToProps = state => state;
 
 const mapDispatchToProps = {
-  setHealthUnit
-}
+  setHealthUnit,
+};
 
 const ConnectedGrowthForecast = connect(
   mapStateToProps,
   mapDispatchToProps
-)(GrowthForecast)
+)(GrowthForecast);
 
-
-export default ConnectedGrowthForecast
+export default ConnectedGrowthForecast;
