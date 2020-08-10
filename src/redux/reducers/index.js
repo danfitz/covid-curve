@@ -1,47 +1,51 @@
-import { combineReducers } from 'redux'
-import { SET_CASES, SET_HEALTH_UNIT, SET_HEALTH_UNITS } from '../actions/actionTypes'
-import { includeGrowthFactors } from '../../utils'
+import { combineReducers } from 'redux';
+import {
+  SET_CASES,
+  SET_HEALTH_UNIT,
+  SET_HEALTH_UNITS,
+} from '../actions/actionTypes';
+import { includeGrowthFactors } from '../../utils';
 
 export const initialState = {
   cases: [],
   healthUnit: 'All',
-  healthUnits: []
-}
+  healthUnits: [],
+};
 
-const cases = (state=initialState.cases, action) => {
+const cases = (state = initialState.cases, action) => {
   switch (action.type) {
     case SET_CASES:
-      const { cases } = action.payload
-      return includeGrowthFactors(cases, 'total')
+      const { cases } = action.payload;
+      return includeGrowthFactors(cases, 'total');
     default:
-      return state
+      return state;
   }
-}
+};
 
-const healthUnit = (state=initialState.healthUnit, action) => {
+const healthUnit = (state = initialState.healthUnit, action) => {
   switch (action.type) {
     case SET_HEALTH_UNIT:
-      const { healthUnit } = action.payload
-      return healthUnit
+      const { healthUnit } = action.payload;
+      return healthUnit;
     default:
-      return state
+      return state;
   }
-}
+};
 
-const healthUnits = (state=initialState.healthUnits, action) => {
+const healthUnits = (state = initialState.healthUnits, action) => {
   switch (action.type) {
     case SET_HEALTH_UNITS:
-      const { healthUnits } = action.payload
-      return healthUnits
+      const { healthUnits } = action.payload;
+      return healthUnits;
     default:
-      return state
+      return state;
   }
-}
+};
 
 const rootReducer = combineReducers({
   cases,
   healthUnit,
-  healthUnits
-})
+  healthUnits,
+});
 
-export default rootReducer
+export default rootReducer;
